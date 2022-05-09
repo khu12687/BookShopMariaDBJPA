@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script>
+	// window.onload = () => { };
+	addEventListener("load", () => {
+		const item = document.getElementById("book");
+		const button = document.getElementById("add_book");
+		
+		button.addEventListener("click", e => {
+			const book = document.createElement("div");
+			
+			book.innerHTML = item.innerHTML;
+			
+			button.parentNode.insertBefore(book, button.nextSibling);
+		});
+	});
+</script>
+</head>
+<body>
+	<div>
+		<h1>주문 등록</h1>
+		<form method="post">
+			<div>				
+				<div>
+					<label>고객명:</label>
+					<select name="custid">
+						<option th:each="customer : ${customers}" th:value="${customer.custid}" th:text="${customer.name}"></option>
+						<option th:if="${customers == null || customers.size() < 1}">등록 된 고객이 없습니다</option>
+					</select>
+				</div>
+				
+				<div id="add_book">
+					<button type="button">도서 추가</button>
+				</div>				
+				
+				<hr>
+				
+				<div>
+					<button>등록</button>
+					<a href="../list"><button type="button">취소</button></a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div id="book" style="display: none;">
+		<div>
+			<label>도서명:</label>
+			<select name="bookid">
+				<option th:each="book : ${books}" th:value="${book.bookid}" th:text="${book.bookname}"></option>
+				<option th:if="${books == null || books.size() < 1}">등록 된 도서가 없습니다</option>
+			</select>
+		</div>
+		<div>
+			<label>수량:</label>
+			<input name="amount" type="number" value="1">
+		</div>	
+	</div>
+</body>
+</html>

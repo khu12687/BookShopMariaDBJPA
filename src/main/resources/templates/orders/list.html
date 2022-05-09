@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+	<div>
+		<h1>고객 목록</h1>
+		<table border="1">
+			<thead>
+				<tr>
+					<td>주문번호</td>
+					<td>고객번호</td>
+					<td>고객명</td>
+					<td>구매금액</td>
+					<td>주문일자</td>
+					<td>관리</td>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="item : ${list}">
+					<td><a th:text="${item.orderid}" th:href="@{view/{orderid}(orderid=${item.orderid})}"></a></td>
+					<td th:text="${item.custid}"></td>
+					<td th:text="${item.customer.name}"></td>
+					<td th:text="${item.saleprice}"></td>
+					<td th:text="${item.orderdate}"></td>
+					<td><a th:href="@{delete/{orderid}(orderid=${item.orderid})}" >삭제</a> <a th:href="@{update/{orderid}(orderid=${item.orderid})}">변경</a></td>
+				</tr>
+				
+				<tr th:if="${list.size() < 1}">
+					<td colspan="6">검색 된 주문내역이 없습니다</td>
+				</tr>
+			</tbody>
+			
+		</table>
+	</div>
+	<div>
+		<a th:href="@{add}">등록</a>
+	</div>	
+	<div>
+		<a href="..">처음으로</a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+	<div>
+		<h1>도서 목록</h1>
+		<table border="1">
+			<thead>
+				<tr>
+					<td>도서번호</td>
+					<td>도서명</td>
+					<td>출판사</td>
+					<td>가격</td>
+					<td>관리</td>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="item : ${list}">
+					<td th:text="${item.bookid}"></td>
+					<td th:text="${item.bookname}"></td>
+					<td th:text="${item.publisher}"></td>
+					<td th:text="${item.price}"></td>
+					<td><a th:href="@{delete/{bookid}(bookid=${item.bookid})}" >삭제</a> <a th:href="@{update/{bookid}(bookid=${item.bookid})}">변경</a></td>
+				</tr>
+				
+				<tr th:if="${list.size() < 1}">
+					<td colspan="5">검색 된 도서가 없습니다</td>
+				</tr>
+			</tbody>
+			
+		</table>
+	</div>
+	<div>
+		<a th:href="@{add}">등록</a>
+	</div>
+	<div>
+		<a th:href="@{dummy}">대량등록</a>
+	</div>
+	<div>
+		<a th:href="@{init}">초기화</a>
+	</div>
+	<div>
+		<a href="..">처음으로</a>
+	</div>
+</body>
+</html>

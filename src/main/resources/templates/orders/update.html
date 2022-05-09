@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+    	addEventListener("load", () => {
+    		const item = document.getElementById("book");    		    		
+    		const button = document.getElementById("add_book");
+    		
+    		button.addEventListener("click", e => {
+    			const book = document.createElement("div");
+    			
+    			book.innerHTML = item.innerHTML;
+    			
+        		button.parentNode.insertBefore(book, button.nextSibling);
+    		});    		
+    	});
+    </script>
+</head>
+<body>
+    <div>
+        <h3>주문정보 변경</h3>
+        <form method="post">
+        	<div id="add_book">
+            	<button type="button">도서 추가</button>
+            </div>        	
+            <div th:each="detail : ${item.detail}">
+            	<div>
+	            	<label>도서명:</label>
+	            	<select name="bookid">
+	            		<option th:each="book : ${books}" th:value="${book.bookid}" th:text="${book.bookname}" th:selected="${book.bookid == detail.bookid}"></option>
+	            		<option th:if="${books == null || books.size() == 0}">등록 된 도서정보가 없습니다</option>
+	            	</select>
+	            </div>
+            	<div>
+    				<label>수량:</label>
+    				<input name="amount" type="number" th:value="${detail.amount}">
+    			</div>
+            </div>
+            <div>
+            	<label>고객명:</label>
+            	<select name="custid">
+            		<option th:each="customer : ${customers}" th:value="${customer.custid}" th:text="${customer.name}" th:selected="${customer.custid == item.custid}"></option>
+            		<option th:if="${customer == null || customers.size() == 0}">등록 된 고객정보가 없습니다</option>
+            	</select>
+            </div>
+            <div>
+                <input type="submit" value="변경">
+            </div>
+        </form>
+        <div>
+        	<a href="../list">목록</a>
+        </div>
+    </div>
+    <div id="book" style="display: none;">
+    	<div>
+          	<label>도서명:</label>
+          	<select name="bookid">
+          		<option th:each="book : ${books}" th:value="${book.bookid}" th:text="${book.bookname}"></option>
+          		<option th:if="${books == null || books.size() == 0}">등록 된 도서정보가 없습니다</option>
+          	</select>
+    	</div>
+    	<div>
+    		<label>수량:</label>
+    		<input name="amount" type="number" value="1">
+    	</div>
+    </div>
+</body>
+</html>
